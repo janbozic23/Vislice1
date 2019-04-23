@@ -1,3 +1,3 @@
-Vega
+Borut Pahor
 Vidav
 Pretnar
