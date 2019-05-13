@@ -1,3 +1,1 @@
-Borut Pahor
-Vidav
-Pretnar
+
