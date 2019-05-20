@@ -82,7 +82,7 @@ def nova_igra(Igra):
     return Igra(bazen_besed.choice())
 
 class Vislice:
-    def __init__(self, igre):
+    def __init__(self):
         self.igre = {}
     
     def prost_id_igre(self):
