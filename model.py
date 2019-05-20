@@ -9,7 +9,7 @@ class Igra:
 
     def __init__(self, beseda, crke = None):
         geslo = beseda
-        if crke = None:
+        if crke == None:
             self.crke = []
         else:
             self.crka = crke
@@ -73,14 +73,31 @@ class Igra:
                 return NAPACNA_CRKA
             
 
-with open(besede.txt, "r", encoding = "utf-8") as besede:
+with open("besede.txt", "r", encoding = "utf-8") as besede:
     bazen_besed = []
-    besede.read()
     for vrstica in besede:
-        bazen_besed.append(vrstica)
-    return bazen_besed
-
-from random import *
+        bazen_besed.append(vrstica.upper().strip())
 
 def nova_igra(Igra):
     return Igra(bazen_besed.choice())
+
+class Vislice:
+    def __init__(self, igre):
+        self.igre = {}
+    
+    def prost_id_igre(self):
+        if self.igre == {}:
+            return 0
+        else:
+            return max(self.igre.keys()) + 1
+    
+    def nova_igra(self):
+        igra = nova_igra()
+        id_igre = self.prost_id_igre()
+        self.igre[id_igre] = (igra, ZACETEK)
+        return id_igre
+    
+    def ugibaj(self, id_igre, crka):
+        igra = self.igre[id_igre][0]
+        stanje = igra.ugibaj(crka)
+        self.igre[id_igre] = (igra, stanje)
