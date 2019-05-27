@@ -1,18 +1,21 @@
+from random import choice
+
 STEVILO_DOVOLJENIH_NAPAK = 10 
 PRAVILNA_CRKA = '+'
 PONOVLJENA_CRKA = 'o'
 NAPACNA_CRKA = '-'
 ZMAGA = 'W'
 PORAZ = 'X'
+ZACETEK = 'S'
 
 class Igra:
 
     def __init__(self, beseda, crke = None):
-        geslo = beseda
+        self.geslo = beseda
         if crke == None:
             self.crke = []
         else:
-            self.crka = crke
+            self.crke = crke
     
     def napacne_crke(self):
         napacne_crke = []
@@ -29,26 +32,25 @@ class Igra:
         return pravilne_crke
 
     def stevilo_napak(self):
-        return len(self.napacne_crke)
+        return len(self.napacne_crke())
 
     def zmaga(self):
         for crka in self.geslo:
-            if crka not in self.pravilne_crke:
+            if crka not in self.pravilne_crke():
                 return False
-            else:
-                return True
+        return True
 
     def poraz(self):
         if self.stevilo_napak() > STEVILO_DOVOLJENIH_NAPAK:
-            return False
-        else:
             return True
+        else:
+            return False
 
     def pravilni_del_gesla(self):
-        pravilni_del = geslo
-        for crka in geslo:
-            if crka not in self.pravilne_crke:
-                pravilni_del = geslo.replace().replace(crka, "_")
+        pravilni_del = self.geslo
+        for crka in self.geslo:
+            if crka not in self.pravilne_crke():
+                pravilni_del = pravilni_del.replace(crka, "_")
         return pravilni_del
 
     def nepravilni_ugibi(self):
@@ -57,11 +59,12 @@ class Igra:
             nepravilni_ugibi += " " + crka
         return nepravilni_ugibi
 
-    def ugibaj(self):
+    def ugibaj(self, crka):
         velika_crka = crka.upper()
         if velika_crka in self.crke:
             return PONOVLJENA_CRKA
-        elif velika_crka in self.geslo:
+        self.crke.append(velika_crka)
+        if velika_crka in self.geslo:
             if self.zmaga():
                 return ZMAGA
             else:
@@ -78,8 +81,8 @@ with open("besede.txt", "r", encoding = "utf-8") as besede:
     for vrstica in besede:
         bazen_besed.append(vrstica.upper().strip())
 
-def nova_igra(Igra):
-    return Igra(bazen_besed.choice())
+def nova_igra():
+    return Igra(choice(bazen_besed))
 
 class Vislice:
     def __init__(self):
